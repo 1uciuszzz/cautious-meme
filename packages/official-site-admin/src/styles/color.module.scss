@@ -1,0 +1,19 @@
+$primary: #aa221b;
+$secondary: #f7cd67;
+$accent: #b58e36;
+$neutral: #a13e40;
+$info: #4d3e38;
+$success: #36d399;
+$warning: #fbbd23;
+$error: #f87272;
+
+:export {
+  primary: $primary;
+  secondary: $secondary;
+  accent: $accent;
+  neutral: $neutral;
+  info: $info;
+  success: $success;
+  warning: $warning;
+  error: $error;
+}
