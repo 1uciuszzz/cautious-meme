@@ -1,6 +1,6 @@
 import color from "../styles/color.module.scss";
 
-function HomePage() {
+function Home() {
   return (
     <h1 className="text-5xl" style={{ color: color.primary }}>
       Official Site Admin
@@ -8,4 +8,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default Home;
