@@ -8,11 +8,14 @@ import {
   Delete,
   UseGuards,
   HttpCode,
+  Req,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { AuthGuard } from "@nestjs/passport";
+import { Request } from "express";
+import { Payload } from "src/auth/payload.interface";
 
 @Controller("users")
 export class UserController {
@@ -29,6 +32,14 @@ export class UserController {
   @UseGuards(AuthGuard("jwt"))
   findAll() {
     return this.userService.findAll();
+  }
+
+  @Get("profile")
+  @HttpCode(200)
+  @UseGuards(AuthGuard("jwt"))
+  async getProfile(@Req() req: Request) {
+    const user = req.user as Payload;
+    return this.userService.getProfile(user.id);
   }
 
   @Get(":id")

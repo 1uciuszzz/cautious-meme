@@ -31,6 +31,17 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
+  async getProfile(id: number) {
+    const user = await this.usersRepository.findOneBy({
+      id: id,
+    });
+    if (!user) {
+      throw new NotFoundException("用户不存在");
+    }
+    delete user.password;
+    return user;
+  }
+
   async findOneById(id: number) {
     return await this.usersRepository.findOneBy({
       id: id,
