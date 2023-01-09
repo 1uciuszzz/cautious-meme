@@ -1,4 +1,10 @@
-import { Body, Controller, Post, ForbiddenException } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Post,
+  ForbiddenException,
+  HttpCode,
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
 
@@ -7,6 +13,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("login")
+  @HttpCode(200)
   async login(@Body() loginDto: LoginDto) {
     const result = await this.authService.validateUser(loginDto);
     if (!result.passed) {
