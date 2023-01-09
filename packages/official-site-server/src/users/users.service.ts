@@ -1,21 +1,19 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { FindOneOptions, Repository } from "typeorm";
-import { CreateUsersDto } from "./dto/create-users.dto";
-import { UpdateUsersDto } from "./dto/update-users.dto";
-import { Users } from "./entities/users.entity";
-import { createHmac } from "crypto";
-import { config } from "src/utilities/config";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
 import { hashPassword } from "src/utilities/hashPassword";
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(Users)
-    private usersRepository: Repository<Users>
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
   ) {}
 
-  async create(createUserDto: CreateUsersDto) {
+  async create(createUserDto: CreateUserDto) {
     const hashedPassword = hashPassword(createUserDto.password);
     const newUser = this.usersRepository.create({
       firstName: createUserDto.firstName,
@@ -29,7 +27,7 @@ export class UsersService {
     return user;
   }
 
-  findAll(): Promise<Users[]> {
+  findAll(): Promise<User[]> {
     return this.usersRepository.find();
   }
 
@@ -39,7 +37,7 @@ export class UsersService {
     });
   }
 
-  async update(id: number, updateUserDto: UpdateUsersDto) {
+  async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.findOneById(id);
     if (!user) {
       throw new NotFoundException("用户不存在");
@@ -65,7 +63,7 @@ export class UsersService {
     return deletedUser;
   }
 
-  async findOne(condition: FindOneOptions<Users>) {
+  async findOne(condition: FindOneOptions<User>) {
     const user = await this.usersRepository.findOne(condition);
     return user;
   }

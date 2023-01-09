@@ -21,7 +21,7 @@ export class AuthService {
     };
   }
 
-  async validateUser(payload: { username: string; password: string }) {
+  async validateUser(payload: LoginDto) {
     const hashedPassword = hashPassword(payload.password);
     const user = await this.userService.findOne({
       where: {

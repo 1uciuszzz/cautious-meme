@@ -6,4 +6,7 @@ export class CreateRouteDto {
 
   @ApiProperty()
   name: string;
+
+  @ApiProperty()
+  parentId: number;
 }

@@ -10,8 +10,8 @@ import {
   HttpCode,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { CreateUsersDto } from "./dto/create-users.dto";
-import { UpdateUsersDto } from "./dto/update-users.dto";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
 import { AuthGuard } from "@nestjs/passport";
 
 @Controller("users")
@@ -20,7 +20,7 @@ export class UserController {
 
   @Post()
   @HttpCode(200)
-  create(@Body() createUserDto: CreateUsersDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
 
@@ -41,7 +41,7 @@ export class UserController {
   @Patch(":id")
   @HttpCode(200)
   @UseGuards(AuthGuard("jwt"))
-  update(@Param("id") id: string, @Body() updateUserDto: UpdateUsersDto) {
+  update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.update(+id, updateUserDto);
   }
 

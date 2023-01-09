@@ -16,4 +16,11 @@ export class Route {
     type: "varchar",
   })
   name: string;
+
+  @Column({
+    comment: "父级路由id",
+    type: "integer",
+    default: 0,
+  })
+  parentId: number;
 }
