@@ -16,7 +16,7 @@ export class AuthService {
       expiresIn: expiresIn,
     });
     return {
-      access_token: `Bearer ${token}`,
+      token: `Bearer ${token}`,
     };
   }
 
