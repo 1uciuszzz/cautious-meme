@@ -9,4 +9,9 @@ export class CreateRouteDto {
 
   @ApiProperty()
   parentId: number;
+
+  @ApiProperty({
+    required: false,
+  })
+  icon: string;
 }

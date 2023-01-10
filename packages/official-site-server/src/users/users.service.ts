@@ -24,6 +24,7 @@ export class UsersService {
       departed: false,
     });
     const user = await this.usersRepository.save(newUser);
+    delete user.password;
     return user;
   }
 
@@ -32,13 +33,15 @@ export class UsersService {
   }
 
   async getProfile(id: number) {
-    const user = await this.usersRepository.findOneBy({
-      id: id,
+    const user = await this.usersRepository.findOne({
+      select: ["id", "avatar", "firstName", "lastName", "username", "email"],
+      where: {
+        id: id,
+      },
     });
     if (!user) {
       throw new NotFoundException("用户不存在");
     }
-    delete user.password;
     return user;
   }
 
@@ -60,6 +63,7 @@ export class UsersService {
       user[key] = updateUserDto[key];
     }
     const updatedUser = await this.usersRepository.save(user);
+    delete updatedUser.password;
     return updatedUser;
   }
 
@@ -71,6 +75,7 @@ export class UsersService {
       throw new NotFoundException("用户不存在");
     }
     const deletedUser = await this.usersRepository.remove(user);
+    delete deletedUser.password;
     return deletedUser;
   }
 

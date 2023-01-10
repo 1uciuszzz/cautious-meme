@@ -6,6 +6,13 @@ export class User {
   id: number;
 
   @Column({
+    comment: "头像链接",
+    type: "varchar",
+    nullable: true,
+  })
+  avatar: string;
+
+  @Column({
     comment: "名字",
     type: "varchar",
   })

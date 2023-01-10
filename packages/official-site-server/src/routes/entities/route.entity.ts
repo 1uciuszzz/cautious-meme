@@ -23,4 +23,11 @@ export class Route {
     default: 0,
   })
   parentId: number;
+
+  @Column({
+    comment: "图标",
+    type: "varchar",
+    default: "mdi-circle-small",
+  })
+  icon: string;
 }

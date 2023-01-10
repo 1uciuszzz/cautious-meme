@@ -88,11 +88,14 @@ export class RoutesService {
     const route = await this.routesRepository.findOneBy({
       id: id,
     });
-    if (!route) {
-      throw new NotFoundException(`id为${id}的路由不存在`);
-    }
-    const deletedRoute = await this.routesRepository.remove(route);
-    return deletedRoute;
+    const routes = await this.routesRepository.findBy({
+      parentId: id,
+    });
+    const deletedRoutes = await this.routesRepository.remove([
+      ...routes,
+      route,
+    ]);
+    return deletedRoutes;
   }
 
   buildTree(routes: Route[], parentId: number) {
@@ -106,6 +109,7 @@ export class RoutesService {
       id: node.id,
       path: node.path,
       name: node.name,
+      icon: node.icon,
       children: this.buildTree(routes, node.id),
     }));
   }
